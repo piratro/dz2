@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from abc import ABC, abstractmethod
 
 # Загальний інтерфейс продукту
@@ -47,3 +48,6 @@ if __name__ == "__main__":
 
     print("App: Launched with the ConcreteCreator2.")
     client_code(ConcreteCreator2())
+=======
+
+>>>>>>> c5e46c2997e32b08a92e92e53565d0d14375ecbf
