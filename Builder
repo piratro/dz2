@@ -1,0 +1,50 @@
+from abc import ABC, abstractmethod
+
+# Загальний інтерфейс продукту
+class Product(ABC):
+    @abstractmethod
+    def operation(self):
+        pass
+
+# Конкретний продукт 1
+class ConcreteProduct1(Product):
+    def operation(self):
+        return "ConcreteProduct1 operation"
+
+# Конкретний продукт 2
+class ConcreteProduct2(Product):
+    def operation(self):
+        return "ConcreteProduct2 operation"
+
+# Фабричний метод у творця (будівельник)
+class Creator(ABC):
+    @abstractmethod
+    def factory_method(self):
+        pass
+
+    def some_operation(self):
+        product = self.factory_method()
+        result = f"Creator: {product.operation()}"
+        return result
+
+# Конкретний творець 1
+class ConcreteCreator1(Creator):
+    def factory_method(self):
+        return ConcreteProduct1()
+
+# Конкретний творець 2
+class ConcreteCreator2(Creator):
+    def factory_method(self):
+        return ConcreteProduct2()
+
+# Клієнтський код
+def client_code(creator: Creator):
+    print(f"Client: {creator.some_operation()}")
+
+# Приклад використання
+if __name__ == "__main__":
+    print("Client: Using ConcreteCreator1")
+    client_code(ConcreteCreator1())
+
+    print("\nClient: Using ConcreteCreator2")
+    client_code(ConcreteCreator2())
