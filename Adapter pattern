@@ -1,0 +1,56 @@
+from abc import ABC, abstractmethod
+
+# Загальний інтерфейс продукту
+class Transport(ABC):
+    @abstractmethod
+    def deliver(self):
+        pass
+# Конкретний продукт: Літак
+class Airplane(Transport):
+    def deliver(self):
+        return "Доставка літаком"
+
+# Конкретний продукт: Вантажівка
+class Truck(Transport):
+    def deliver(self):
+        return "Доставка вантажівкою"
+
+# Конкретний продукт: Потяг
+class Train(Transport):
+    def deliver(self):
+        return "Доставка потягом"
+# Абстрактний творець
+class Logistics(ABC):
+    @abstractmethod
+    def create_transport(self):
+        pass
+# Конкретний творець для АвіаПошти
+class AirMailLogistics(Logistics):
+    def create_transport(self):
+        return Airplane()
+# Конкретний творець для НаземноїПошти
+class GroundMailLogistics(Logistics):
+    def create_transport(self, is_truck=True):
+        if is_truck:
+            return Truck()
+        else:
+            return Train()
+# Клієнтський код
+def client_code(logistics):
+    transport = logistics.create_transport()
+    return transport.deliver()
+
+# Використання АвіаЛогістика
+aviation_logistics = AirMailLogistics()
+result = client_code(aviation_logistics)
+print(result)  # Доставка літаком
+
+# Використання НаземнаЛогістика з вантажівкою
+ground_logistics_with_truck = GroundMailLogistics()
+result = client_code(ground_logistics_with_truck)
+print(result)  # Доставка вантажівкою
+
+# Використання НаземнаЛогістика з потягом
+ground_logistics_with_train = GroundMailLogistics()
+result = client_code(ground_logistics_with_train.create_transport(is_truck=False))
+print(result)  # Доставка потягом
