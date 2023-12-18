@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from abc import ABC, abstractmethod
 
 # Абстрактний клас для продукту "Транспортний засіб"
@@ -50,3 +51,6 @@ if __name__ == "__main__":
     truck_factory = TruckFactory()
     client_truck = Client(truck_factory)
     print(client_truck.arrange_delivery())  # Виведе: "Доставка вантажівкою"
+=======
+
+>>>>>>> 06b5f1088237da198e7a31fe2080544dc1dc0642
