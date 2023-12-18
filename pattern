@@ -1,1 +1,69 @@
+// Патерн Фабричний метод має сенс лише тоді, коли в програмі є
+// ієрархія класів продуктів.
+interface Button is
+    method render()
+    method onClick(f)
 
+class WindowsButton implements Button is
+    method render(a, b) is
+        // Відобразити кнопку в стилі Windows.
+    method onClick(f) is
+        // Навісити на кнопку обробник подій Windows.
+
+class HTMLButton implements Button is
+    method render(a, b) is
+        // Повернути HTML-код кнопки.
+    method onClick(f) is
+        // Навісити на кнопку обробник події браузера.
+
+
+// Базовий клас фабрики. Зауважте, що "фабрика" — це всього лише
+// додаткова роль для цього класу. Скоріше за все, він вже має
+// якусь бізнес-логіку, яка потребує створення продуктів.
+class Dialog is
+    method render() is
+        // Щоб використати фабричний метод, ви маєте
+        // пересвідчитися, що ця бізнес-логіка не залежить від
+        // конкретних класів продуктів. Button — це загальний
+        // інтейрфейс кнопок, тому все гаразд.
+        Button okButton = createButton()
+        okButton.onClick(closeDialog)
+        okButton.render()
+
+    // Ми виносимо весь код створення продуктів до особливого
+    // методу, який називають "фабричним".
+    abstract method createButton():Button
+
+
+// Конкретні фабрики перевизначають фабричний метод і повертають
+// з нього власні продукти.
+class WindowsDialog extends Dialog is
+    method createButton():Button is
+        return new WindowsButton()
+
+class WebDialog extends Dialog is
+    method createButton():Button is
+        return new HTMLButton()
+
+
+class Application is
+    field dialog: Dialog
+
+    // Програма створює певну фабрику в залежності від
+    // конфігурації або оточення.
+    method initialize() is
+        config = readApplicationConfigFile()
+
+        if (config.OS == "Windows") then
+            dialog = new WindowsDialog()
+        else if (config.OS == "Web") then
+            dialog = new WebDialog()
+        else
+            throw new Exception("Error! Unknown operating system.")
+
+    // Якщо весь інший клієнтський код працює з фабриками та
+    // продуктами тільки через загальний інтерфейс, то для нього
+    // байдуже, якого типу фабрику було створено на початку.
+    method main() is
+        this.initialize()
+        dialog.render()
