@@ -1,0 +1,52 @@
+from abc import ABC, abstractmethod
+
+# Абстрактний клас для продукту "Транспортний засіб"
+class Transport(ABC):
+    @abstractmethod
+    def deliver(self):
+        pass
+
+# Класи конкретних продуктів
+class Airplane(Transport):
+    def deliver(self):
+        return "Доставка літаком"
+
+class Truck(Transport):
+    def deliver(self):
+        return "Доставка вантажівкою"
+
+# Абстрактний клас для фабрики
+class TransportFactory(ABC):
+    @abstractmethod
+    def create_transport(self):
+        pass
+
+# Класи конкретних фабрик
+class AirplaneFactory(TransportFactory):
+    def create_transport(self):
+        return Airplane()
+
+class TruckFactory(TransportFactory):
+    def create_transport(self):
+        return Truck()
+
+# Клас клієнта, який використовує фабрику
+class Client:
+    def __init__(self, factory: TransportFactory):
+        self.transport_factory = factory
+
+    def arrange_delivery(self):
+        transport = self.transport_factory.create_transport()
+        return transport.deliver()
+
+# Використання патерну фабрика
+if __name__ == "__main__":
+    # Створення літака
+    airplane_factory = AirplaneFactory()
+    client_air = Client(airplane_factory)
+    print(client_air.arrange_delivery())  # Виведе: "Доставка літаком"
+
+    # Створення вантажівки
+    truck_factory = TruckFactory()
+    client_truck = Client(truck_factory)
+    print(client_truck.arrange_delivery())  # Виведе: "Доставка вантажівкою"
