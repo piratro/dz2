@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from abc import ABC, abstractmethod
 import copy
 
@@ -62,3 +63,6 @@ if __name__ == "__main__":
     print(cloned_square)
     print(cloned_circle)
     print(cloned_triangle)
+=======
+
+>>>>>>> 77a21f73c216f1f08d23e6c2036a134423e1d26a
