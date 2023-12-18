@@ -1,0 +1,68 @@
+<<<<<<< HEAD
+from abc import ABC, abstractmethod
+import copy
+
+# Загальний інтерфейс для продуктів
+class Shape(ABC):
+    @abstractmethod
+    def clone(self):
+        pass
+
+# Конкретна реалізація продукту (квадрат)
+class Square(Shape):
+    def clone(self):
+        return copy.deepcopy(self)
+
+# Конкретна реалізація продукту (коло)
+class Circle(Shape):
+    def clone(self):
+        return copy.deepcopy(self)
+
+# Конкретна реалізація продукту (трикутник)
+class Triangle(Shape):
+    def clone(self):
+        return copy.deepcopy(self)
+
+# Фабричний метод
+class ShapeFactory(ABC):
+    @abstractmethod
+    def create_shape(self):
+        pass
+
+# Конкретна реалізація фабричного методу
+class SquareFactory(ShapeFactory):
+    def create_shape(self):
+        return Square()
+
+# Конкретна реалізація фабричного методу
+class CircleFactory(ShapeFactory):
+    def create_shape(self):
+        return Circle()
+
+# Конкретна реалізація фабричного методу
+class TriangleFactory(ShapeFactory):
+    def create_shape(self):
+        return Triangle()
+
+# Клієнтський код
+if __name__ == "__main__":
+    # Використання фабричних методів для створення об'єктів
+    square_factory = SquareFactory()
+    circle_factory = CircleFactory()
+    triangle_factory = TriangleFactory()
+
+    square = square_factory.create_shape()
+    circle = circle_factory.create_shape()
+    triangle = triangle_factory.create_shape()
+
+    # Перевірка, чи створюються копії об'єктів
+    cloned_square = square.clone()
+    cloned_circle = circle.clone()
+    cloned_triangle = triangle.clone()
+
+    print(cloned_square)
+    print(cloned_circle)
+    print(cloned_triangle)
+=======
+
+>>>>>>> 77a21f73c216f1f08d23e6c2036a134423e1d26a
